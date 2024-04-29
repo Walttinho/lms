@@ -1,9 +1,9 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
 
-import { CreateUserUseCase } from './useCase/create.useCase';
+import { CreateUserUseCase } from '../useCase/create.useCase';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ViewModelUser } from './viewModelUser';
+import { ViewModelUser } from '../viewModelUser';
 
 @ApiTags('users')
 @Controller('user')
