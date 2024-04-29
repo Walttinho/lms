@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { PrismaUserRepository } from 'src/database/prisma/repository/prisma.user.repository';
 import { UserRepository } from '../repository/user.repository';
 
@@ -8,7 +8,10 @@ export class FindAllUsersUseCase {
     @Inject(PrismaUserRepository) private userRepository: UserRepository,
   ) {}
 
-  async execute() {
+  async execute(role) {
+    if (role !== 'ADMINISTRATOR') {
+      throw new BadRequestException('Only administrators can see all users');
+    }
     const users = await this.userRepository.findAll();
     return users;
   }
