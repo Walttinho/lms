@@ -15,10 +15,11 @@ model User {
   password  String
   role      UserRole
   createdAt DateTime
+  updatedAt DateTime @updatedAt
 }
 
 enum UserRole {
-  PROFESSOR
+  PROFESSOR 
   STUDENTS
   ADMINISTRATOR
 }
