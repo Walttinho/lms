@@ -14,6 +14,10 @@ export class FindAllUserController {
     status: 200,
     description: 'The list of users has been successfully retrieved.',
   })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized.',
+  })
   async findAll(@Req() req: Request) {
     const role = req['user'].role;
     const users = await this.useCase.execute(role);
