@@ -11,6 +11,7 @@ export class PrismaUserMapper {
       password: user.password,
       role: user.role as UserRole,
       createdAt: user.createdAt,
+      updatedAt: new Date(),
     };
   }
 
