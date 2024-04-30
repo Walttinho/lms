@@ -1,12 +1,13 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { PrismaCourseRepository } from 'src/database/prisma/repository/prisma.course.repository';
 import { Course } from '../entities/course.entity';
+import { CourseRepository } from '../repository/course.repository';
 
 @Injectable()
 export class CreateCourseUseCase {
   constructor(
     @Inject(PrismaCourseRepository)
-    private courseRepository: PrismaCourseRepository,
+    private courseRepository: CourseRepository,
   ) {}
 
   async execute({ name, description, banner }): Promise<Course> {
