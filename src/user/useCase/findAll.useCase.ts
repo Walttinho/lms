@@ -9,6 +9,7 @@ export class FindAllUsersUseCase {
   ) {}
 
   async execute(role: string) {
+    console.log(role)
     if (role !== 'ADMINISTRATOR') {
       throw new UnauthorizedException('Only administrators can see all users');
     }

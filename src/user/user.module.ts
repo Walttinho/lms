@@ -8,6 +8,8 @@ import { FindUserByIdController } from './controller/findById.controller';
 import { FindUserByIdUseCase } from './useCase/findById.useCase';
 import { DeleteUserController } from './controller/delete.controller';
 import { DeleteUserUseCase } from './useCase/delete.useCase';
+import { UpdateUserController } from './controller/update.controller';
+import { UpdateUserUseCase } from './useCase/update.useCase';
 
 
 @Module({
@@ -17,12 +19,14 @@ import { DeleteUserUseCase } from './useCase/delete.useCase';
     FindAllUserController,
     FindUserByIdController,
     DeleteUserController,
+    UpdateUserController
   ],
   providers: [
     CreateUserUseCase,
     FindAllUsersUseCase,
     FindUserByIdUseCase,
     DeleteUserUseCase,
+    UpdateUserUseCase
   ],
 })
 export class UserModule {}
