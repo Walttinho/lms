@@ -8,6 +8,8 @@ import { FindCourseByIdController } from 'src/courses/controller/findById.contro
 import { FindCourseByIdUseCase } from './useCase/findById.useCase';
 import { DeleteCourseByIdController } from './controller/delete.controller';
 import { DeleteCourseByIdUseCase } from './useCase/delete.useCase';
+import { UpdateCourseUseCase } from './useCase/update.useCase';
+import { UpdateCourseByIdController } from './controller/update.controller';
 
 @Module({
   imports: [DatabaseModule],
@@ -16,12 +18,14 @@ import { DeleteCourseByIdUseCase } from './useCase/delete.useCase';
     FindAllCoursesController,
     FindCourseByIdController,
     DeleteCourseByIdController,
+    UpdateCourseByIdController,
   ],
   providers: [
     CreateCourseUseCase,
     FindAllCoursesUseCase,
     FindCourseByIdUseCase,
     DeleteCourseByIdUseCase,
+    UpdateCourseUseCase,
   ],
 })
 export class CoursesModule {}
