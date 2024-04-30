@@ -7,7 +7,7 @@ import { ViewModelUser } from '../viewModelUser';
 
 @ApiTags('users')
 @Controller('user')
-export class UserController {
+export class CreateUserController {
   constructor(private useCase: CreateUserUseCase) {}
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
