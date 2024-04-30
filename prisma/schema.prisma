@@ -16,10 +16,21 @@ model User {
   role      UserRole
   createdAt DateTime
   updatedAt DateTime @updatedAt
+  courses     Course[] @relation("CourseAccess")
 }
 
 enum UserRole {
   PROFESSOR 
   STUDENTS
   ADMINISTRATOR
+}
+
+model Course {
+ id          String   @id 
+ name        String
+ description String
+ banner      String
+ createdAt   DateTime 
+ updatedAt   DateTime @updatedAt
+ users       User[]   @relation("CourseAccess")
 }
