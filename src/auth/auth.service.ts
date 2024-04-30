@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '../user/repository/user.repository';
 import * as bcrypt from 'bcrypt';
 import { PrismaUserRepository } from 'src/database/prisma/repository/prisma.user.repository';
+import { identity } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -35,9 +36,12 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
 
     return {
-      name: user.name,
-      username: user.username,
-      email: user.email,
+      user: {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+      },
       token,
     };
   }
