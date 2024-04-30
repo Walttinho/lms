@@ -4,6 +4,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { JwtModule } from '@nestjs/jwt';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { JwtModule } from '@nestjs/jwt';
       secret: process.env.JWT_SECRET, 
       signOptions: { expiresIn: '6h' }, 
     }),
+    CoursesModule,
   ],
   controllers: [],
   providers: [],
