@@ -1,4 +1,9 @@
-import { BadRequestException, ConflictException, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { UserRepository } from '../../user/repository/user.repository';
 import { User } from '../../user/entities/user.entity';
 import { hash } from 'bcrypt';
@@ -24,7 +29,10 @@ export class CreateUserUseCase {
       (await this.userRepository.findByEmail(email)) ||
       (await this.userRepository.findByUsername(username));
 
-    if (userAlreadyExist) throw new ConflictException('User already exists, username or email already in use');
+    if (userAlreadyExist)
+      throw new ConflictException(
+        'User already exists, username or email already in use',
+      );
 
     if (!Object.values(UserRole).includes(role as UserRole)) {
       throw new BadRequestException(

@@ -11,7 +11,6 @@ import { DeleteUserUseCase } from './useCase/delete.useCase';
 import { UpdateUserController } from './controller/update.controller';
 import { UpdateUserUseCase } from './useCase/update.useCase';
 
-
 @Module({
   imports: [DatabaseModule],
   controllers: [
@@ -19,14 +18,14 @@ import { UpdateUserUseCase } from './useCase/update.useCase';
     FindAllUserController,
     FindUserByIdController,
     DeleteUserController,
-    UpdateUserController
+    UpdateUserController,
   ],
   providers: [
     CreateUserUseCase,
     FindAllUsersUseCase,
     FindUserByIdUseCase,
     DeleteUserUseCase,
-    UpdateUserUseCase
+    UpdateUserUseCase,
   ],
 })
 export class UserModule {}

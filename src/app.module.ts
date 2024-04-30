@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
@@ -12,8 +17,8 @@ import { CoursesModule } from './courses/courses.module';
     UserModule,
     AuthModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET, 
-      signOptions: { expiresIn: '6h' }, 
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '6h' },
     }),
     CoursesModule,
   ],

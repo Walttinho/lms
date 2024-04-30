@@ -1,10 +1,14 @@
-import { BadRequestException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '../user/repository/user.repository';
 import * as bcrypt from 'bcrypt';
 import { PrismaUserRepository } from 'src/database/prisma/repository/prisma.user.repository';
-import { identity } from 'rxjs';
 
 @Injectable()
 export class AuthService {

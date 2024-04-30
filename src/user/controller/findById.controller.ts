@@ -21,7 +21,7 @@ export class FindUserByIdController {
   })
   async findById(@Req() req: Request) {
     const userId = req['user'].id;
-    
+
     const user = await this.useCase.execute(userId);
     return ViewModelUser.toHttp(user);
   }
