@@ -16,21 +16,39 @@ model User {
   role      UserRole
   createdAt DateTime
   updatedAt DateTime @updatedAt
-  courses     Course[] @relation("CourseAccess")
+  courses   Course[] @relation("CourseAccess")
 }
 
 enum UserRole {
-  PROFESSOR 
+  PROFESSOR
   STUDENTS
   ADMINISTRATOR
 }
 
 model Course {
- id          String   @id 
- name        String
- description String
- banner      String
- createdAt   DateTime 
- updatedAt   DateTime @updatedAt
- users       User[]   @relation("CourseAccess")
+  id          String    @id
+  name        String
+  description String
+  banner      String
+  createdAt   DateTime
+  updatedAt   DateTime  @updatedAt
+  users       User[]    @relation("CourseAccess")
+  lessons     Lessons[] @relation("CourseToLessons")
+}
+
+model Lessons {
+  id          String     @id
+  name        String
+  description String
+  role        LessonRole
+  content     String
+  courseId    String
+  course      Course     @relation("CourseToLessons", fields: [courseId], references: [id])
+   createdAt   DateTime
+  updatedAt   DateTime  @updatedAt
+}
+
+enum LessonRole {
+  FILE
+  LINK
 }
