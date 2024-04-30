@@ -23,6 +23,6 @@ export class PrismaUserMapper {
       password: userRaw.password,
       role: userRaw.role as UserRole,
       createdAt: userRaw.createdAt,
-    });
+    }, userRaw.id);
   }
 }
