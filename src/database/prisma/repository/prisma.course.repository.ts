@@ -23,4 +23,16 @@ export class PrismaCourseRepository implements CourseRepository {
 
     return coursesRaw.map(PrismaCourseMapper.toDomain);
   }
+
+  async findById(id: string): Promise<Course | null> {
+    const courseRaw = await this.prisma.course.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!courseRaw) return null;
+
+    return PrismaCourseMapper.toDomain(courseRaw);
+  }
 }

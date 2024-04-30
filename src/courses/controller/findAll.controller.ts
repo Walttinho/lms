@@ -1,5 +1,3 @@
-// src/courses/controller/findAll.controller.ts
-
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
 import { FindAllCoursesUseCase } from '../useCase/findAll.useCase';
