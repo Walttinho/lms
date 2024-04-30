@@ -35,4 +35,12 @@ export class PrismaCourseRepository implements CourseRepository {
 
     return PrismaCourseMapper.toDomain(courseRaw);
   }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.course.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
