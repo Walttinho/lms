@@ -8,7 +8,7 @@ export class FindAllUsersUseCase {
     @Inject(PrismaUserRepository) private userRepository: UserRepository,
   ) {}
 
-  async execute(role) {
+  async execute(role: string) {
     if (role !== 'ADMINISTRATOR') {
       throw new UnauthorizedException('Only administrators can see all users');
     }

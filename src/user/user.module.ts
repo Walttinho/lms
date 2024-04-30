@@ -6,11 +6,23 @@ import { FindAllUsersUseCase } from './useCase/findAll.useCase';
 import { FindAllUserController } from './controller/findAll.controller';
 import { FindUserByIdController } from './controller/findById.controller';
 import { FindUserByIdUseCase } from './useCase/findById.useCase';
+import { DeleteUserController } from './controller/delete.controller';
+import { DeleteUserUseCase } from './useCase/delete.useCase';
 
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [UserController, FindAllUserController, FindUserByIdController],
-  providers: [CreateUserUseCase, FindAllUsersUseCase, FindUserByIdUseCase],
+  controllers: [
+    UserController,
+    FindAllUserController,
+    FindUserByIdController,
+    DeleteUserController,
+  ],
+  providers: [
+    CreateUserUseCase,
+    FindAllUsersUseCase,
+    FindUserByIdUseCase,
+    DeleteUserUseCase,
+  ],
 })
 export class UserModule {}
