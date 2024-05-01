@@ -4,8 +4,7 @@ import { UpdateCourseUseCase } from '../useCase/update.useCase';
 import { viewModelCourse } from '../viewModelCourse';
 import { UpdateCourseDto } from '../dto/update-course.dto';
 
-
-@ApiTags('curses')
+@ApiTags('courses')
 @Controller('courses')
 export class UpdateCourseByIdController {
   constructor(private useCase: UpdateCourseUseCase) {}
@@ -20,7 +19,11 @@ export class UpdateCourseByIdController {
     status: 401,
     description: 'Unauthorized.',
   })
-  async update(@Req() req: Request, @Body() updateCourseDto: UpdateCourseDto, @Param('id') id: string) {
+  async update(
+    @Req() req: Request,
+    @Body() updateCourseDto: UpdateCourseDto,
+    @Param('id') id: string,
+  ) {
     const { role } = req['user'];
     const result = await this.useCase.execute(id, role, updateCourseDto);
     return viewModelCourse.toHttp(result);

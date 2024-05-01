@@ -4,7 +4,7 @@ import { CreateCourseUseCase } from '../useCase/create.useCase';
 import { Course } from '../entities/course.entity';
 import { viewModelCourse } from '../viewModelCourse';
 
-@ApiTags('Courses')
+@ApiTags('courses')
 @Controller('courses')
 export class CreateCoursesController {
   constructor(private useCase: CreateCourseUseCase) {}

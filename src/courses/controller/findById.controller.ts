@@ -3,7 +3,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { viewModelCourse } from '../viewModelCourse';
 import { FindCourseByIdUseCase } from '../useCase/findById.useCase';
 
-@ApiTags('curses')
+@ApiTags('courses')
 @Controller('courses')
 export class FindCourseByIdController {
   constructor(private useCase: FindCourseByIdUseCase) {}

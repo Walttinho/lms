@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaCourseRepository } from 'src/database/prisma/repository/prisma.course.repository';
 import { CourseRepository } from '../repository/course.repository';
 
@@ -11,9 +16,15 @@ export class UpdateCourseUseCase {
     @Inject(PrismaCourseRepository) private courseRepository: CourseRepository,
   ) {}
 
-  async execute(id: string, role: string, updateCourseDto: UpdateCourseDto): Promise<Course> {
+  async execute(
+    id: string,
+    role: string,
+    updateCourseDto: UpdateCourseDto,
+  ): Promise<Course> {
     if (role === 'STUDENTS') {
-      throw new UnauthorizedException('Only administrators and teachers can update courses');
+      throw new UnauthorizedException(
+        'Only administrators and teachers can update courses',
+      );
     }
     const Course = await this.courseRepository.findById(id);
     if (!Course) throw new NotFoundException('Course not found');

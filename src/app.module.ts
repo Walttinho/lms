@@ -11,7 +11,6 @@ import { AuthMiddleware } from './auth/auth.middleware';
 import { JwtModule } from '@nestjs/jwt';
 import { CoursesModule } from './courses/courses.module';
 import { LessonsModule } from './lessons/lessons.module';
-import { LessonsModule } from './lessons/lessons.module';
 
 @Module({
   imports: [
