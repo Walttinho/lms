@@ -37,4 +37,12 @@ export class PrismaLessonRepository implements LessonRepository {
     });
     return lessons.map((lesson) => PrismaLessonMapper.toDomain(lesson));
   }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.lessons.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }

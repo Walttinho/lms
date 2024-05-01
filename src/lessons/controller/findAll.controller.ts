@@ -8,7 +8,7 @@ import { FindAllLessonsUseCase } from '../useCase/findAll.useCase';
 export class FindAllLessonsController {
   constructor(private useCase: FindAllLessonsUseCase) {}
 
-  @Get('all')
+  @Get()
   @ApiOperation({ summary: 'Find all lessons' })
   @ApiResponse({ status: 200, type: [viewModelLesson] })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })

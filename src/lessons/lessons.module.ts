@@ -6,6 +6,8 @@ import { FindLessonByIdController } from './controller/findById.controller';
 import { FindLessonByIdUseCase } from './useCase/findById.useCase';
 import { FindAllLessonsController } from './controller/findAll.controller';
 import { FindAllLessonsUseCase } from './useCase/findAll.useCase';
+import { DeleteLessonByIdController } from './controller/delete.controller';
+import { DeleteLessonByIdUseCase } from './useCase/delete.useCase';
 
 @Module({
   imports: [DatabaseModule],
@@ -13,11 +15,13 @@ import { FindAllLessonsUseCase } from './useCase/findAll.useCase';
     CreateLessonsController,
     FindLessonByIdController,
     FindAllLessonsController,
+    DeleteLessonByIdController
   ],
   providers: [
     CreateLessonUseCase,
     FindLessonByIdUseCase,
     FindAllLessonsUseCase,
+    DeleteLessonByIdUseCase
   ],
 })
 export class LessonsModule {}

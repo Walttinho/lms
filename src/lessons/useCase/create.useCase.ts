@@ -23,7 +23,7 @@ export class CreateLessonUseCase {
     userRole: string,
     { name, description, content, role, courseId },
   ): Promise<Lesson> {
-    if (!courseId) throw new BadRequestException('Course id is required');
+    
 
     if (!name || !description || !content)
       throw new BadRequestException(

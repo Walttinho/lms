@@ -16,6 +16,9 @@ export class FindAllLessonsUseCase {
     page: number,
     size: number,
   ): Promise<Lesson[]> {
+    const course = await this.courseRepository.findById(courseId);
+    if (!course) throw new NotFoundException('Course not found');
+    
     const skip = (page - 1) * size;
     const lessons = await this.lessonRepository.findAll(courseId, skip, size);
 
