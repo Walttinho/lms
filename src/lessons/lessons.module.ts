@@ -15,13 +15,13 @@ import { DeleteLessonByIdUseCase } from './useCase/delete.useCase';
     CreateLessonsController,
     FindLessonByIdController,
     FindAllLessonsController,
-    DeleteLessonByIdController
+    DeleteLessonByIdController,
   ],
   providers: [
     CreateLessonUseCase,
     FindLessonByIdUseCase,
     FindAllLessonsUseCase,
-    DeleteLessonByIdUseCase
+    DeleteLessonByIdUseCase,
   ],
 })
 export class LessonsModule {}

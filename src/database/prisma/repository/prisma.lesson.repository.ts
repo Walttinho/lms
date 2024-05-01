@@ -45,4 +45,14 @@ export class PrismaLessonRepository implements LessonRepository {
       },
     });
   }
+
+  async update(lesson: Lesson): Promise<void> {
+    const lessonRaw = PrismaLessonMapper.toPrisma(lesson);
+    await this.prisma.lessons.update({
+      where: {
+        id: lessonRaw.id,
+      },
+      data: lessonRaw,
+    });
+  }
 }

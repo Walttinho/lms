@@ -9,4 +9,5 @@ export abstract class LessonRepository {
     take: number,
   ): Promise<Lesson[]>;
   abstract delete(id: string): Promise<void>;
+  abstract update(lesson: Lesson): Promise<void>;
 }

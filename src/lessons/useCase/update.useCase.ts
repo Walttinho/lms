@@ -5,38 +5,47 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { LessonRepository } from '../repository/lesson.repository';
 import { PrismaLessonRepository } from 'src/database/prisma/repository/prisma.lesson.repository';
+import { UpdateLessonDto } from '../dto/update-lesson.dto';
 import { Lesson } from '../entities/lesson.entity';
 import { PrismaCourseRepository } from 'src/database/prisma/repository/prisma.course.repository';
+import { LessonRepository } from '../repository/lesson.repository';
 import { CourseRepository } from 'src/courses/repository/course.repository';
 
 @Injectable()
-export class CreateLessonUseCase {
+export class UpdateLessonByIdUseCase {
   constructor(
-    @Inject(PrismaLessonRepository)
-    private lessonRepository: LessonRepository,
+    @Inject(PrismaLessonRepository) private lessonRepository: LessonRepository,
     @Inject(PrismaCourseRepository) private courseRepository: CourseRepository,
   ) {}
 
   async execute(
+    courseId: string,
+    lessonId: string,
     userRole: string,
-    { name, description, content, role, courseId },
+    lessonUpdate: UpdateLessonDto,
   ): Promise<Lesson> {
-    if (!name || !description || !content)
-      throw new BadRequestException(
-        'Name, description and content are required',
-      );
+    const { content, role } = lessonUpdate;
 
     if (['STUDENTS'].includes(userRole)) {
       throw new UnauthorizedException(
-        'Only admins and teachers can create lessons',
+        'Only admins and teachers can update lessons',
       );
     }
 
     const course = await this.courseRepository.findById(courseId);
-    if (!course) throw new NotFoundException('Course not found');
+    if (!course) {
+      throw new NotFoundException('Course not found');
+    }
 
+    const lesson = await this.lessonRepository.findById(lessonId);
+    if (!lesson) {
+      throw new NotFoundException('Lesson not found');
+    }
+
+    if (lesson.courseId !== course.id) {
+      throw new UnauthorizedException('Lesson not part of the course');
+    }
     if (['FILE'].includes(role)) {
       const fileExtension = content.split('.').pop().toLowerCase();
       const allowedExtensions = ['pdf', 'xlsx', 'docx', 'pptx'];
@@ -61,14 +70,13 @@ export class CreateLessonUseCase {
       );
     }
 
-    const lesson = new Lesson({
-      name,
-      description,
-      content,
-      role,
-      courseId,
-    });
-    await this.lessonRepository.create(lesson);
+    if (lessonUpdate.name) lesson.name = lessonUpdate.name;
+    if (lessonUpdate.description) lesson.description = lessonUpdate.description;
+    if (lessonUpdate.content) lesson.content = lessonUpdate.content;
+    if (lessonUpdate.role) lesson.role = lessonUpdate.role;
+
+    await this.lessonRepository.update(lesson);
+
     return lesson;
   }
 }

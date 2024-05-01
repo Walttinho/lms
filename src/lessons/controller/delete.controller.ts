@@ -1,4 +1,4 @@
-import { Controller, Delete, Param } from '@nestjs/common';
+import { Controller, Delete, Param, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { DeleteLessonByIdUseCase } from '../useCase/delete.useCase';
 
@@ -7,7 +7,12 @@ import { DeleteLessonByIdUseCase } from '../useCase/delete.useCase';
 export class DeleteLessonByIdController {
   constructor(private useCase: DeleteLessonByIdUseCase) {}
   @Delete(':id')
-  async delete(@Param('id') id: string, @Param('courseId') courseId: string) {
-    await this.useCase.execute(id, courseId);
+  async delete(
+    @Req() req: Request,
+    @Param('id') id: string,
+    @Param('courseId') courseId: string,
+  ) {
+    const userRole = req['user'].role;
+    await this.useCase.execute(id, courseId, userRole);
   }
 }
