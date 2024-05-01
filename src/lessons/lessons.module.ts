@@ -4,8 +4,8 @@ import { CreateLessonUseCase } from './useCase/create.useCase';
 import { DatabaseModule } from 'src/database/database.module';
 import { FindLessonByIdController } from './controller/findById.controller';
 import { FindLessonByIdUseCase } from './useCase/findById.useCase';
-import { FindAllLessonsController } from './controller/findAll.controller';
-import { FindAllLessonsUseCase } from './useCase/findAll.useCase';
+import { FindAllLessonsByCourseController } from './controller/findAllByCourse.controller';
+import { FindAllLessonsByCourseUseCase } from './useCase/findAllByCourse.useCase';
 import { DeleteLessonByIdController } from './controller/delete.controller';
 import { DeleteLessonByIdUseCase } from './useCase/delete.useCase';
 
@@ -14,13 +14,13 @@ import { DeleteLessonByIdUseCase } from './useCase/delete.useCase';
   controllers: [
     CreateLessonsController,
     FindLessonByIdController,
-    FindAllLessonsController,
+    FindAllLessonsByCourseController,
     DeleteLessonByIdController,
   ],
   providers: [
     CreateLessonUseCase,
     FindLessonByIdUseCase,
-    FindAllLessonsUseCase,
+    FindAllLessonsByCourseUseCase,
     DeleteLessonByIdUseCase,
   ],
 })

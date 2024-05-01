@@ -3,12 +3,13 @@ import { LessonRepository } from '../repository/lesson.repository';
 import { Lesson } from '../entities/lesson.entity';
 import { CourseRepository } from 'src/courses/repository/course.repository';
 import { PrismaLessonRepository } from 'src/database/prisma/repository/prisma.lesson.repository';
+import { PrismaCourseRepository } from 'src/database/prisma/repository/prisma.course.repository';
 
 @Injectable()
-export class FindAllLessonsUseCase {
+export class FindAllLessonsByCourseUseCase {
   constructor(
     @Inject(PrismaLessonRepository) private lessonRepository: LessonRepository,
-    @Inject(PrismaLessonRepository) private courseRepository: CourseRepository,
+    @Inject(PrismaCourseRepository) private courseRepository: CourseRepository,
   ) {}
 
   async execute(
@@ -20,7 +21,11 @@ export class FindAllLessonsUseCase {
     if (!course) throw new NotFoundException('Course not found');
 
     const skip = (page - 1) * size;
-    const lessons = await this.lessonRepository.findAll(courseId, skip, size);
+    const lessons = await this.lessonRepository.findAllByCourse(
+      courseId,
+      skip,
+      size,
+    );
 
     if (!lessons || lessons.length === 0) {
       throw new NotFoundException('Lessons not found');

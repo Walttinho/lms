@@ -1,12 +1,12 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { viewModelLesson } from '../viewModelLesson';
-import { FindAllLessonsUseCase } from '../useCase/findAll.useCase';
+import { FindAllLessonsByCourseUseCase } from '../useCase/findAllByCourse.useCase';
 
 @ApiTags('lessons')
 @Controller('courses/:courseId/lessons')
-export class FindAllLessonsController {
-  constructor(private useCase: FindAllLessonsUseCase) {}
+export class FindAllLessonsByCourseController {
+  constructor(private useCase: FindAllLessonsByCourseUseCase) {}
 
   @Get()
   @ApiOperation({ summary: 'Find all lessons' })

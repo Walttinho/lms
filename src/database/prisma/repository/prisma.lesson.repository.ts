@@ -23,7 +23,7 @@ export class PrismaLessonRepository implements LessonRepository {
     if (!lesson) return null;
     return PrismaLessonMapper.toDomain(lesson);
   }
-  async findAll(
+  async findAllByCourse(
     courseId: string,
     skip: number,
     take: number,
