@@ -23,4 +23,18 @@ export class PrismaLessonRepository implements LessonRepository {
     if (!lesson) return null;
     return PrismaLessonMapper.toDomain(lesson);
   }
+  async findAll(
+    courseId: string,
+    skip: number,
+    take: number,
+  ): Promise<Lesson[]> {
+    const lessons = await this.prisma.lessons.findMany({
+      where: {
+        courseId: courseId,
+      },
+      skip,
+      take,
+    });
+    return lessons.map((lesson) => PrismaLessonMapper.toDomain(lesson));
+  }
 }

@@ -9,7 +9,7 @@ import { FindLessonByIdUseCase } from '../useCase/findById.useCase';
 export class FindLessonByIdController {
   constructor(private useCase: FindLessonByIdUseCase) {}
 
-  @Get(':id')
+  @Get()
   @ApiOperation({ summary: 'Find lesson by ID' })
   @ApiResponse({
     status: 200,
