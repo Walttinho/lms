@@ -13,4 +13,14 @@ export class PrismaLessonRepository implements LessonRepository {
       data: lessonRaw,
     });
   }
+
+  async findById(id: string): Promise<Lesson | null> {
+    const lesson = await this.prisma.lessons.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!lesson) return null;
+    return PrismaLessonMapper.toDomain(lesson);
+  }
 }
