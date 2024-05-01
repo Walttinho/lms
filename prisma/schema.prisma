@@ -41,14 +41,15 @@ model Lessons {
   name        String
   description String
   role        LessonRole
-  content     String
+  content     String  @db.VarChar(5000)
   courseId    String
-  course      Course     @relation("CourseToLessons", fields: [courseId], references: [id])
-   createdAt   DateTime
-  updatedAt   DateTime  @updatedAt
+  course      Course     @relation("CourseToLessons", fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt   DateTime
+  updatedAt   DateTime   @updatedAt
 }
 
 enum LessonRole {
   FILE
   LINK
+  TEXT
 }
