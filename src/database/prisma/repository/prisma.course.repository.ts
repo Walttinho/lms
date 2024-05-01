@@ -3,6 +3,7 @@ import { CourseRepository } from 'src/courses/repository/course.repository';
 import { PrismaService } from '../prisma.service';
 import { Course } from 'src/courses/entities/course.entity';
 import { PrismaCourseMapper } from '../mappers/prisma.course.mapper';
+import { PrismaLessonMapper } from '../mappers/prisma.lesson.mapper';
 
 @Injectable()
 export class PrismaCourseRepository implements CourseRepository {
@@ -19,9 +20,19 @@ export class PrismaCourseRepository implements CourseRepository {
     const coursesRaw = await this.prisma.course.findMany({
       skip: skip,
       take: take,
+      include: {
+        lessons: true,
+      },
     });
 
-    return coursesRaw.map(PrismaCourseMapper.toDomain);
+    const result = coursesRaw.map((courseRaw) => {
+      const lessons = courseRaw.lessons.map(PrismaLessonMapper.toDomain);
+      const course = PrismaCourseMapper.toDomain(courseRaw);
+      course.lessons = lessons;
+      return course;
+    });
+
+    return result;
   }
 
   async findById(id: string): Promise<Course | null> {
@@ -29,11 +40,20 @@ export class PrismaCourseRepository implements CourseRepository {
       where: {
         id,
       },
+      include: {
+        lessons: true,
+      },
     });
 
     if (!courseRaw) return null;
 
-    return PrismaCourseMapper.toDomain(courseRaw);
+    const lessons = courseRaw.lessons.map(PrismaLessonMapper.toDomain);
+
+    const course = PrismaCourseMapper.toDomain(courseRaw);
+
+    course.lessons = lessons;
+
+    return course;
   }
 
   async delete(id: string): Promise<void> {

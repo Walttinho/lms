@@ -1,4 +1,5 @@
 import { randomUUID } from 'crypto';
+import { Lesson } from 'src/lessons/entities/lesson.entity';
 import { Replace } from 'src/utils/replace';
 
 interface CourseSchema {
@@ -7,6 +8,7 @@ interface CourseSchema {
   banner: string;
   createdAt: Date;
   updatedAt?: Date;
+  lessons?: Lesson[];
 }
 
 export class Course {
@@ -17,6 +19,7 @@ export class Course {
     this.props = {
       ...props,
       createdAt: new Date(),
+      updatedAt: new Date(),
     };
     this._id = id || randomUUID();
   }
@@ -41,6 +44,10 @@ export class Course {
     return this.props.createdAt;
   }
 
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
   set name(name: string) {
     this.props.name = name;
   }
@@ -51,5 +58,13 @@ export class Course {
 
   set banner(banner: string) {
     this.props.banner = banner;
+  }
+
+  get lessons() {
+    return this.props.lessons;
+  }
+
+  set lessons(lessons: Lesson[]) {
+    this.props.lessons = lessons;
   }
 }
