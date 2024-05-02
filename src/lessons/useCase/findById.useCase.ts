@@ -12,7 +12,10 @@ export class FindLessonByIdUseCase {
     @Inject(PrismaCourseRepository) private courseRepository: CourseRepository,
   ) {}
 
-  async execute(id: string, courseId: string): Promise<Lesson> {
+  async execute(id: string, courseId: string, userReq: any): Promise<Lesson> {
+    if (['STUDENTS'].includes(userReq.role)) {
+      await this.lessonRepository.updateWatching(id, userReq.id);
+    }
     const course = await this.courseRepository.findById(courseId);
     if (!course) throw new NotFoundException('Course not found');
     const lesson = await this.lessonRepository.findById(id);

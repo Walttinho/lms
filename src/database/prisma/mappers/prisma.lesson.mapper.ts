@@ -11,6 +11,7 @@ export class PrismaLessonMapper {
       courseId: lesson.courseId,
       createdAt: lesson.createdAt,
       updatedAt: new Date(),
+      watching: [],
     };
   }
 

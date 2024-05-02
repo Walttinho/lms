@@ -55,4 +55,15 @@ export class PrismaLessonRepository implements LessonRepository {
       data: lessonRaw,
     });
   }
+
+  async updateWatching(lessonId: string, userId: string): Promise<void> {
+    await this.prisma.lessons.update({
+      where: { id: lessonId },
+      data: {
+        watching: {
+          push: userId,
+        },
+      },
+    });
+  }
 }

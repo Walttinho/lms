@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Req } from '@nestjs/common';
 import {
   ApiOperation,
   ApiBearerAuth,
@@ -26,8 +26,14 @@ export class FindLessonByIdController {
   })
   @ApiResponse({ status: 404, description: 'Lesson not found.' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
-  async findById(@Param('id') id: string, @Param('courseId') courseId: string) {
-    const lesson = await this.useCase.execute(id, courseId);
+  async findById(
+    @Req() req: Request,
+    @Param('id') id: string,
+    @Param('courseId') courseId: string,
+  ) {
+    const userReq = req['user'];
+
+    const lesson = await this.useCase.execute(id, courseId, userReq);
     return viewModelLesson.toHttp(lesson);
   }
 }

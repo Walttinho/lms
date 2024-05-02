@@ -10,4 +10,5 @@ export abstract class LessonRepository {
   ): Promise<Lesson[]>;
   abstract delete(id: string): Promise<void>;
   abstract update(lesson: Lesson): Promise<void>;
+  abstract updateWatching(lessonId: string, userId: string): Promise<void>;
 }
