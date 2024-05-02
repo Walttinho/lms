@@ -46,6 +46,7 @@ model Lessons {
   course      Course     @relation("CourseToLessons", fields: [courseId], references: [id], onDelete: Cascade)
   createdAt   DateTime
   updatedAt   DateTime   @updatedAt
+  watching String[]
 }
 
 enum LessonRole {
