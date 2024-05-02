@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>lms documentation</title>
+        <title>lms-learning-management-system documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@
           </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">lms documentation</a>
+            <a href="../" class="navbar-brand">lms-learning-management-system documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -145,6 +145,7 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#findAll" >findAll</a>
                             </li>
@@ -177,6 +178,7 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>findAll</b></span>
                         <a href="#findAll"><span class="icon ion-ios-link"></span></a>
@@ -194,14 +196,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@ApiOperation({summary: &#x27;Find all courses&#x27;})<br />@ApiResponse({status: 200, description: &#x27;The list of courses has been successfully retrieved.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br />@ApiQuery({name: &#x27;page&#x27;, required: false, type: Number, description: &#x27;Page number&#x27;})<br />@ApiQuery({name: &#x27;size&#x27;, required: false, type: Number, description: &#x27;Number of items per page&#x27;})<br /></code>
+                    <code>@Get()<br />@ApiOperation({summary: &#x27;Find all courses&#x27;})<br />@ApiResponse({status: 200, description: &#x27;The list of courses has been successfully retrieved.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error.&#x27;})<br />@ApiQuery({name: &#x27;page&#x27;, required: false, type: Number, description: &#x27;Page number&#x27;})<br />@ApiQuery({name: &#x27;size&#x27;, required: false, type: Number, description: &#x27;Number of items per page&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">src/courses/controller/findAll.controller.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/courses/controller/findAll.controller.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -271,11 +273,18 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Query } from &#x27;@nestjs/common&#x27;;
-import { ApiOperation, ApiResponse, ApiTags, ApiQuery } from &#x27;@nestjs/swagger&#x27;;
+import {
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+  ApiQuery,
+} from &#x27;@nestjs/swagger&#x27;;
 import { FindAllCoursesUseCase } from &#x27;../useCase/findAll.useCase&#x27;;
 import { viewModelCourse } from &#x27;../viewModelCourse&#x27;;
 
 @ApiTags(&#x27;courses&#x27;)
+@ApiBearerAuth()
 @Controller(&#x27;courses&#x27;)
 export class FindAllCoursesController {
   constructor(private useCase: FindAllCoursesUseCase) {}
@@ -289,6 +298,10 @@ export class FindAllCoursesController {
   @ApiResponse({
     status: 401,
     description: &#x27;Unauthorized.&#x27;,
+  })
+  @ApiResponse({
+    status: 500,
+    description: &#x27;Internal server error.&#x27;,
   })
   @ApiQuery({
     name: &#x27;page&#x27;,

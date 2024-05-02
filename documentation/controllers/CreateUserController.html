@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>lms documentation</title>
+        <title>lms-learning-management-system documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@
           </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">lms documentation</a>
+            <a href="../" class="navbar-brand">lms-learning-management-system documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -143,6 +143,10 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#create" >create</a>
                             </li>
@@ -173,6 +177,10 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>create</b></span>
                         <a href="#create"><span class="icon ion-ios-link"></span></a>
@@ -190,14 +198,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiOperation({summary: &#x27;Create a new user&#x27;})<br />@ApiBody({type: CreateUserDto})<br />@ApiResponse({status: 201, description: &#x27;The user has been successfully created.&#x27;})<br /></code>
+                    <code>@Post()<br />@ApiOperation({summary: &#x27;Create a new user&#x27;})<br />@ApiBody({type: CreateUserDto})<br />@ApiResponse({status: 201, description: &#x27;The user has been successfully created.&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Bad request.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br />@ApiResponse({status: 409, description: &#x27;User already exists.&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="19"
-                                    class="link-to-prism">src/user/controller/create.controller.ts:19</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="23"
+                                    class="link-to-prism">src/user/controller/create.controller.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -265,6 +273,10 @@ export class CreateUserController {
     status: 201,
     description: &#x27;The user has been successfully created.&#x27;,
   })
+  @ApiResponse({ status: 400, description: &#x27;Bad request.&#x27; })
+  @ApiResponse({ status: 401, description: &#x27;Unauthorized.&#x27; })
+  @ApiResponse({ status: 409, description: &#x27;User already exists.&#x27; })
+  @ApiResponse({ status: 500, description: &#x27;Internal server error.&#x27; })
   async create(@Body() createUserDto: CreateUserDto) {
     const user &#x3D; await this.useCase.execute(createUserDto);
 

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>lms documentation</title>
+        <title>lms-learning-management-system documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@
           </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">lms documentation</a>
+            <a href="../" class="navbar-brand">lms-learning-management-system documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -143,6 +143,8 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#findById" >findById</a>
                             </li>
@@ -173,6 +175,8 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>findById</b></span>
                         <a href="#findById"><span class="icon ion-ios-link"></span></a>
@@ -190,14 +194,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@ApiOperation({summary: &#x27;Find user by ID&#x27;})<br />@ApiResponse({status: 200, description: &#x27;The user has been successfully retrieved.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br /></code>
+                    <code>@Get()<br />@ApiOperation({summary: &#x27;Find user by ID&#x27;})<br />@ApiResponse({status: 200, description: &#x27;The user has been successfully retrieved.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;User not found.&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/user/controller/findById.controller.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">src/user/controller/findById.controller.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -247,13 +251,19 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiOperation, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+} from &#x27;@nestjs/swagger&#x27;;
 import { Controller, Get, Req } from &#x27;@nestjs/common&#x27;;
 import { FindUserByIdUseCase } from &#x27;../useCase/findById.useCase&#x27;;
 import { ViewModelUser } from &#x27;../viewModelUser&#x27;;
 import { Request } from &#x27;express&#x27;;
 
 @ApiTags(&#x27;users&#x27;)
+@ApiBearerAuth()
 @Controller(&#x27;user&#x27;)
 export class FindUserByIdController {
   constructor(private useCase: FindUserByIdUseCase) {}
@@ -267,6 +277,14 @@ export class FindUserByIdController {
   @ApiResponse({
     status: 401,
     description: &#x27;Unauthorized.&#x27;,
+  })
+  @ApiResponse({
+    status: 404,
+    description: &#x27;User not found.&#x27;,
+  })
+  @ApiResponse({
+    status: 500,
+    description: &#x27;Internal server error.&#x27;,
   })
   async findById(@Req() req: Request) {
     const userId &#x3D; req[&#x27;user&#x27;].id;

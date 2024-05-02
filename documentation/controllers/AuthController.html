@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>lms documentation</title>
+        <title>lms-learning-management-system documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@
           </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">lms documentation</a>
+            <a href="../" class="navbar-brand">lms-learning-management-system documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -144,6 +144,7 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#login" >login</a>
                             </li>
                         </ul>
@@ -174,6 +175,7 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>login</b></span>
                         <a href="#login"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -190,14 +192,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiOperation({summary: &#x27;User login&#x27;})<br />@ApiBody({type: LoginAuthDto})<br />@ApiResponse({status: 200, description: &#x27;The user has been successfully logged in.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br /></code>
+                    <code>@Post()<br />@ApiOperation({summary: &#x27;User login&#x27;})<br />@ApiBody({type: LoginAuthDto})<br />@ApiResponse({status: 200, description: &#x27;The user has been successfully logged in.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/auth/auth.controller.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">src/auth/auth.controller.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -267,6 +269,10 @@ export class AuthController {
   @ApiResponse({
     status: 401,
     description: &#x27;Unauthorized.&#x27;,
+  })
+  @ApiResponse({
+    status: 500,
+    description: &#x27;Internal server error.&#x27;,
   })
   login(@Body() loginAuthDto: LoginAuthDto) {
     return this.authService.login(loginAuthDto);

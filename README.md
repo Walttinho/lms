@@ -59,7 +59,7 @@ For detailed information on each endpoint, click on the endpoint name. Additiona
 - [GET /courses](#9-list-all-courses): List all courses.
 - [GET /courses/:courseId/lessons](#10-list-all-lessons-for-a-specific-course): List all lessons for a specific course.
 - [GET /courses/:id](#11-find-a-course-by-id): Find a course by ID.
-- [GET /courses/:courseId/lessons/:id](#12-find-a-lesson-by-id-for-a-specific-course): Find a lesson by ID for a specific course.
+- [GET /courses/:courseId/lessons/:id](#12-find-a-lesson-by-id-for-a-specific-course): Find a lesson by ID for a specific course update watching lesson for Students.
 - [PUT /courses/:id](#13-update-a-course-by-id): Update a course by ID.
 - [PUT /courses/:courseId/lessons/:id](#14-update-a-lesson-by-id-for-a-specific-course): Update a lesson by ID for a specific course.
 - [DELETE /courses/:id](#15-delete-a-course-by-id): Delete a course by ID.
@@ -389,7 +389,7 @@ Nest is [MIT licensed](LICENSE).
 
 **Route:** `GET /courses/:courseId/lessons/:id`
 
-**Description:** Finds a lesson by ID for a specific course.
+**Description:** Finds a lesson by ID for a specific course and watching lesson for students.
 
 **Response:**
 

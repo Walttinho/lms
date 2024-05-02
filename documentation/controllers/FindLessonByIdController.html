@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>lms documentation</title>
+        <title>lms-learning-management-system documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@
           </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">lms documentation</a>
+            <a href="../" class="navbar-brand">lms-learning-management-system documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -186,7 +186,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, courseId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>findById(req: Request, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, courseId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -200,8 +200,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="23"
-                                    class="link-to-prism">src/lessons/controller/findById.controller.ts:23</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">src/lessons/controller/findById.controller.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -221,6 +221,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                        <code>Request</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
                                         <tr>
                                                 <td>id</td>
                                             <td>
@@ -263,12 +275,18 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Param } from &#x27;@nestjs/common&#x27;;
-import { ApiOperation, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Param, Req } from &#x27;@nestjs/common&#x27;;
+import {
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+} from &#x27;@nestjs/swagger&#x27;;
 import { viewModelLesson } from &#x27;../viewModelLesson&#x27;;
 import { FindLessonByIdUseCase } from &#x27;../useCase/findById.useCase&#x27;;
 
 @ApiTags(&#x27;lessons&#x27;)
+@ApiBearerAuth()
 @Controller(&#x27;courses/:courseId/lessons&#x27;)
 export class FindLessonByIdController {
   constructor(private useCase: FindLessonByIdUseCase) {}
@@ -285,8 +303,14 @@ export class FindLessonByIdController {
   })
   @ApiResponse({ status: 404, description: &#x27;Lesson not found.&#x27; })
   @ApiResponse({ status: 500, description: &#x27;Internal server error.&#x27; })
-  async findById(@Param(&#x27;id&#x27;) id: string, @Param(&#x27;courseId&#x27;) courseId: string) {
-    const lesson &#x3D; await this.useCase.execute(id, courseId);
+  async findById(
+    @Req() req: Request,
+    @Param(&#x27;id&#x27;) id: string,
+    @Param(&#x27;courseId&#x27;) courseId: string,
+  ) {
+    const userReq &#x3D; req[&#x27;user&#x27;];
+
+    const lesson &#x3D; await this.useCase.execute(id, courseId, userReq);
     return viewModelLesson.toHttp(lesson);
   }
 }

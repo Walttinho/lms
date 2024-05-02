@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>lms documentation</title>
+        <title>lms-learning-management-system documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@
           </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">lms documentation</a>
+            <a href="../" class="navbar-brand">lms-learning-management-system documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -204,8 +204,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">src/lessons/controller/findAllByCourse.controller.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">src/lessons/controller/findAllByCourse.controller.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -289,11 +289,18 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Param, Query } from &#x27;@nestjs/common&#x27;;
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import {
+  ApiOperation,
+  ApiQuery,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+} from &#x27;@nestjs/swagger&#x27;;
 import { viewModelLesson } from &#x27;../viewModelLesson&#x27;;
 import { FindAllLessonsByCourseUseCase } from &#x27;../useCase/findAllByCourse.useCase&#x27;;
 
 @ApiTags(&#x27;lessons&#x27;)
+@ApiBearerAuth()
 @Controller(&#x27;courses/:courseId/lessons&#x27;)
 export class FindAllLessonsByCourseController {
   constructor(private useCase: FindAllLessonsByCourseUseCase) {}

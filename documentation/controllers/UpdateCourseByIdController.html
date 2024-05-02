@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>lms documentation</title>
+        <title>lms-learning-management-system documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@
           </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">lms documentation</a>
+            <a href="../" class="navbar-brand">lms-learning-management-system documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -143,6 +143,8 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#update" >update</a>
                             </li>
@@ -173,6 +175,8 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>update</b></span>
                         <a href="#update"><span class="icon ion-ios-link"></span></a>
@@ -190,14 +194,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Update course&#x27;})<br />@ApiResponse({status: 200, description: &#x27;The course has been successfully updated.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br /></code>
+                    <code>@Patch(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Update course&#x27;})<br />@ApiResponse({status: 200, description: &#x27;The course has been successfully updated.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Course not found.&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/courses/controller/update.controller.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">src/courses/controller/update.controller.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -272,12 +276,18 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, Controller, Param, Patch, Req } from &#x27;@nestjs/common&#x27;;
-import { ApiOperation, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import {
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+} from &#x27;@nestjs/swagger&#x27;;
 import { UpdateCourseUseCase } from &#x27;../useCase/update.useCase&#x27;;
 import { viewModelCourse } from &#x27;../viewModelCourse&#x27;;
 import { UpdateCourseDto } from &#x27;../dto/update-course.dto&#x27;;
 
 @ApiTags(&#x27;courses&#x27;)
+@ApiBearerAuth()
 @Controller(&#x27;courses&#x27;)
 export class UpdateCourseByIdController {
   constructor(private useCase: UpdateCourseUseCase) {}
@@ -291,6 +301,14 @@ export class UpdateCourseByIdController {
   @ApiResponse({
     status: 401,
     description: &#x27;Unauthorized.&#x27;,
+  })
+  @ApiResponse({
+    status: 404,
+    description: &#x27;Course not found.&#x27;,
+  })
+  @ApiResponse({
+    status: 500,
+    description: &#x27;Internal server error.&#x27;,
   })
   async update(
     @Req() req: Request,

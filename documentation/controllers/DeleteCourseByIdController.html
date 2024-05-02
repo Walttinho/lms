@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>lms documentation</title>
+        <title>lms-learning-management-system documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@
           </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="../" class="navbar-brand">lms documentation</a>
+            <a href="../" class="navbar-brand">lms-learning-management-system documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -140,6 +140,11 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#delete" >delete</a>
                             </li>
@@ -167,6 +172,11 @@
                     <a name="delete"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>delete</b></span>
                         <a href="#delete"><span class="icon ion-ios-link"></span></a>
@@ -184,14 +194,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;:id&#x27;)<br /></code>
+                    <code>@ApiOperation({summary: &#x27;Delete course by id&#x27;})<br />@ApiResponse({status: 204, description: &#x27;The course has been successfully deleted.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Course not found.&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error.&#x27;})<br />@Delete(&#x27;:id&#x27;)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="11"
-                                    class="link-to-prism">src/courses/controller/delete.controller.ts:11</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="24"
+                                    class="link-to-prism">src/courses/controller/delete.controller.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -254,14 +264,27 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Delete, Param, Req } from &#x27;@nestjs/common&#x27;;
-import { ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import {
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+} from &#x27;@nestjs/swagger&#x27;;
 import { DeleteCourseByIdUseCase } from &#x27;../useCase/delete.useCase&#x27;;
 
 @ApiTags(&#x27;courses&#x27;)
+@ApiBearerAuth()
 @Controller(&#x27;courses&#x27;)
 export class DeleteCourseByIdController {
   constructor(private useCase: DeleteCourseByIdUseCase) {}
-
+  @ApiOperation({ summary: &#x27;Delete course by id&#x27; })
+  @ApiResponse({
+    status: 204,
+    description: &#x27;The course has been successfully deleted.&#x27;,
+  })
+  @ApiResponse({ status: 401, description: &#x27;Unauthorized.&#x27; })
+  @ApiResponse({ status: 404, description: &#x27;Course not found.&#x27; })
+  @ApiResponse({ status: 500, description: &#x27;Internal server error.&#x27; })
   @Delete(&#x27;:id&#x27;)
   async delete(@Req() req: Request, @Param(&#x27;id&#x27;) id: string) {
     const role &#x3D; req[&#x27;user&#x27;].role;
