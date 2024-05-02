@@ -1,9 +1,15 @@
 import { Controller, Get, Req } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ViewModelUser } from '../viewModelUser';
 import { FindAllUsersUseCase } from '../useCase/findAll.useCase';
 
 @ApiTags('users')
+@ApiBearerAuth()
 @Controller('user')
 export class FindAllUserController {
   constructor(private useCase: FindAllUsersUseCase) {}
@@ -17,6 +23,10 @@ export class FindAllUserController {
   @ApiResponse({
     status: 401,
     description: 'Unauthorized.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
   })
   async findAll(@Req() req: Request) {
     const role = req['user'].role;

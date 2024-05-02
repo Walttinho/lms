@@ -1,10 +1,10 @@
 {
-  "name": "lms",
+  "name": "lms-learning-management-system",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "The project exists to provide a platform where users can create, manage, and enroll in online courses. It aims to streamline the process of course creation, lesson management, user authentication, and user access control.",
+  "author": "Walter Netto",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -36,6 +36,7 @@
     "superagent": "^9.0.1"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.24",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",

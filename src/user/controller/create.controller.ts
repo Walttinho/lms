@@ -16,6 +16,10 @@ export class CreateUserController {
     status: 201,
     description: 'The user has been successfully created.',
   })
+  @ApiResponse({ status: 400, description: 'Bad request.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
+  @ApiResponse({ status: 409, description: 'User already exists.' })
+  @ApiResponse({ status: 500, description: 'Internal server error.' })
   async create(@Body() createUserDto: CreateUserDto) {
     const user = await this.useCase.execute(createUserDto);
 

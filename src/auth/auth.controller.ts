@@ -19,6 +19,10 @@ export class AuthController {
     status: 401,
     description: 'Unauthorized.',
   })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
+  })
   login(@Body() loginAuthDto: LoginAuthDto) {
     return this.authService.login(loginAuthDto);
   }

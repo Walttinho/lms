@@ -1,10 +1,16 @@
 import { Body, Controller, Param, Patch, Req } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { UpdateCourseUseCase } from '../useCase/update.useCase';
 import { viewModelCourse } from '../viewModelCourse';
 import { UpdateCourseDto } from '../dto/update-course.dto';
 
 @ApiTags('courses')
+@ApiBearerAuth()
 @Controller('courses')
 export class UpdateCourseByIdController {
   constructor(private useCase: UpdateCourseUseCase) {}
@@ -18,6 +24,14 @@ export class UpdateCourseByIdController {
   @ApiResponse({
     status: 401,
     description: 'Unauthorized.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Course not found.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
   })
   async update(
     @Req() req: Request,

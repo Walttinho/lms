@@ -1,0 +1,494 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>lms documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="./" class="navbar-brand">lms documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1>Online Course Registration System</h1>
+<p><a href="https://lms-8ajl.onrender.com/docs">API Documentation</a>   |   <a href="https://lms-8ajl.onrender.com/documentation">Code Documentation</a></p>
+<p>This project is an API for managing online courses, with functionalities for teachers and students.</p>
+<h2>Table of Contents</h2>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#running-with-docker">Running with Docker</a></li>
+<li><a href="#database-migrations-and-seeding">Database Migrations and Seeding</a></li>
+<li><a href="#api-endpoints">API Endpoints</a></li>
+<li><a href="#contribution">Contribution</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<h2>Installation</h2>
+<p>To run the project locally, follow these steps:</p>
+<ol>
+<li>Clone the repository from the master branch. <code>https://github.com/Walttinho/lms.git</code></li>
+<li>Navigate to the project directory. <code>cd lms</code></li>
+<li>Install dependencies using npm or yarn: <code>npm install</code> or <code>yarn install</code>.</li>
+<li>Set up your environment variables as needed. <code> touch .env &amp;&amp; echo -e &quot;DATABASE_URL=\nPORT=\nJWT_SECRET=&quot; &gt;&gt; .env</code></li>
+<li>Run the application: <code>npm run start:dev</code> or <code>yarn start:dev</code>.</li>
+</ol>
+<h2>Running with Docker</h2>
+<p>To run the project using Docker, follow these steps:</p>
+<ol>
+<li>Install Docker on your machine if you haven&#39;t already.</li>
+<li>Build the Docker image: <code>docker build -t lms-backend .</code></li>
+<li>Run the Docker container: <code>docker run -p 3000:3000 lms-backend</code></li>
+</ol>
+<h2>Database Migrations and Seeding</h2>
+<p>To apply database migrations and seeding, follow these steps:</p>
+<ol>
+<li>Run database migrations: <code>prisma migrate dev</code></li>
+<li>Seed the database with initial data: <code>prisma db seed</code></li>
+</ol>
+<h3>Simulating Different Access Types</h3>
+<ul>
+<li><strong>Administrator Access</strong>: Use the appropriate token in the request header to simulate administrator access.</li>
+<li><strong>Professor Access</strong>: Use the appropriate token in the request header to simulate professor access.</li>
+<li><strong>Student Access</strong>: Use the appropriate token in the request header to simulate student access.</li>
+</ul>
+<h2>API Endpoints</h2>
+<p>For detailed information on each endpoint, click on the endpoint name. Additionally, you can visit the interactive documentation at <a href="https://lms-8ajl.onrender.com/docs">Swagger</a> to explore and test the API endpoints directly in your browser.</p>
+<ul>
+<li><a href="#1-create-a-new-user">POST /user</a>: Create a new user.</li>
+<li><a href="#2-list-all-users">GET /user/all</a>: List all users.</li>
+<li><a href="#3-find-a-user-by-id">GET /user</a>: Find a user by ID.</li>
+<li><a href="#4-delete-a-user-by-id">DELETE /user/:id</a>: Delete a user by ID.</li>
+<li><a href="#5-update-a-user">PATCH /user</a>: Update a user.</li>
+<li><a href="#6-user-login">POST /auth</a>: User login.</li>
+<li><a href="#7-create-a-new-course">POST /courses</a>: Create a new course.</li>
+<li><a href="#8-create-a-new-lesson">POST /courses/:courseId/lessons</a>: Create a new lesson for a specific course.</li>
+<li><a href="#9-list-all-courses">GET /courses</a>: List all courses.</li>
+<li><a href="#10-list-all-lessons-for-a-specific-course">GET /courses/:courseId/lessons</a>: List all lessons for a specific course.</li>
+<li><a href="#11-find-a-course-by-id">GET /courses/:id</a>: Find a course by ID.</li>
+<li><a href="#12-find-a-lesson-by-id-for-a-specific-course">GET /courses/:courseId/lessons/:id</a>: Find a lesson by ID for a specific course.</li>
+<li><a href="#13-update-a-course-by-id">PUT /courses/:id</a>: Update a course by ID.</li>
+<li><a href="#14-update-a-lesson-by-id-for-a-specific-course">PUT /courses/:courseId/lessons/:id</a>: Update a lesson by ID for a specific course.</li>
+<li><a href="#15-delete-a-course-by-id">DELETE /courses/:id</a>: Delete a course by ID.</li>
+<li><a href="#16-delete-a-lesson-by-id-for-a-specific-course">DELETE /courses/:courseId/lessons/:id</a>: Delete a lesson by ID for a specific course.</li>
+</ul>
+<h2>Contribution</h2>
+<p>We appreciate all contributors who have helped make this project what it is today. If you are interested in contributing, please follow the instructions below:</p>
+<ol>
+<li>Fork the project.</li>
+<li>Create a branch with the name of your feature or fix (<code>git checkout -b feature/my-new-feature</code>).</li>
+<li>Make your changes and commit them (<code>git commit -am &#39;Add some feature&#39;</code>).</li>
+<li>Push to your branch (<code>git push origin feature/my-new-feature</code>).</li>
+<li>Open a Pull Request.</li>
+</ol>
+<p>Please ensure your code is in line with the project&#39;s style guidelines and that all test checks are passing.</p>
+<h3>License</h3>
+<p>Nest is <a href="LICENSE">MIT licensed</a>.</p>
+<h3>1. <a href="#api-endpoints">Create a New User</a></h3>
+<p><strong>Route:</strong> <code>POST /user</code></p>
+<p><strong>Description:</strong> Creates a new user.</p>
+<p><strong>Request Body:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;name&quot;: &quot;John Doe&quot;,
+  &quot;username&quot;: &quot;johndoe&quot;,
+  &quot;email&quot;: &quot;john.doe&#64;example.com&quot;,
+  &quot;password&quot;: &quot;SecurePassword123!&quot;,
+  &quot;role&quot;: &quot;STUDENTS&quot;
+}</code></pre></div><p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417400&quot;,
+  &quot;name&quot;: &quot;John Doe&quot;,
+  &quot;username&quot;: &quot;johndoe&quot;,
+  &quot;email&quot;: &quot;john.doe&#64;example.com&quot;,
+  &quot;role&quot;: &quot;STUDENTS&quot;
+}</code></pre></div><h3>2. <a href="#api-endpoints">List All Users</a></h3>
+<p><strong>Route:</strong> <code>GET /user/all</code></p>
+<p><strong>Description:</strong> Lists all users available.</p>
+<p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">[
+  {
+    &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417400&quot;,
+    &quot;name&quot;: &quot;John Doe&quot;,
+    &quot;username&quot;: &quot;johndoe&quot;,
+    &quot;email&quot;: &quot;john.doe&#64;example.com&quot;,
+    &quot;role&quot;: &quot;STUDENTS&quot;
+  },
+  {
+    &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417401&quot;,
+    &quot;name&quot;: &quot;Jane Smith&quot;,
+    &quot;username&quot;: &quot;janesmith&quot;,
+    &quot;email&quot;: &quot;jane.smith&#64;example.com&quot;,
+    &quot;role&quot;: &quot;PROFESSOR&quot;
+  }
+]</code></pre></div><h3>3. <a href="#api-endpoints">Find a User by ID</a></h3>
+<p><strong>Route:</strong> <code>GET /user</code></p>
+<p><strong>Description:</strong> Finds a user by ID.</p>
+<p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417400&quot;,
+  &quot;name&quot;: &quot;John Doe&quot;,
+  &quot;username&quot;: &quot;johndoe&quot;,
+  &quot;email&quot;: &quot;john.doe&#64;example.com&quot;,
+  &quot;role&quot;: &quot;STUDENTS&quot;
+}</code></pre></div><h3>4. <a href="#api-endpoints">Delete a User by ID</a></h3>
+<p><strong>Route:</strong> <code>DELETE /user/:id</code></p>
+<p><strong>Description:</strong> Deletes a user by ID.</p>
+<p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;message&quot;: &quot;User deleted successfully&quot;
+}</code></pre></div><h3>5. <a href="#api-endpoints">Update a User</a></h3>
+<p><strong>Route:</strong> <code>PATCH /user</code></p>
+<p><strong>Description:</strong> Updates a user.</p>
+<p><strong>Request Body:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;name&quot;: &quot;Johnathan Doe&quot;,
+  &quot;username&quot;: &quot;johnathandoe&quot;,
+  &quot;email&quot;: &quot;johnathan.doe&#64;example.com&quot;,
+  &quot;password&quot;: &quot;NewSecurePassword123!&quot;,
+  &quot;role&quot;: &quot;ADMINISTRATOR&quot;
+}</code></pre></div><p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417400&quot;,
+  &quot;name&quot;: &quot;Johnathan Doe&quot;,
+  &quot;username&quot;: &quot;johnathandoe&quot;,
+  &quot;email&quot;: &quot;johnathan.doe&#64;example.com&quot;,
+  &quot;role&quot;: &quot;ADMINISTRATOR&quot;
+}</code></pre></div><h3>6. <a href="#api-endpoints">User Login</a></h3>
+<p><strong>Route:</strong> <code>POST /auth</code></p>
+<p><strong>Description:</strong> Logs in a user.</p>
+<p><strong>Request Body:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;email&quot;: &quot;johnathan.doe&#64;example.com&quot;,
+  &quot;username&quot;: &quot;johnathandoe&quot;,
+  &quot;password&quot;: &quot;NewSecurePassword123!&quot;
+}</code></pre></div><p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;user&quot;: {
+    &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417400&quot;,
+    &quot;name&quot;: &quot;Johnathan Doe&quot;,
+    &quot;username&quot;: &quot;johnathandoe&quot;,
+    &quot;email&quot;: &quot;johnathan.doe&#64;example.com&quot;
+  },
+  &quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3OCwidXNlcm5hbWUiOiJqb2huYWRvbm9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c&quot;
+}</code></pre></div><h3>7. <a href="#api-endpoints">Create a New Course</a></h3>
+<p><strong>Route:</strong> <code>POST /courses</code></p>
+<p><strong>Description:</strong> Creates a new course.</p>
+<p><strong>Request Body:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;name&quot;: &quot;Introduction to Programming&quot;,
+  &quot;description&quot;: &quot;Learn the basics of programming.&quot;,
+  &quot;banner&quot;: &quot;https://example.com/images/programming.jpg&quot;
+}</code></pre></div><p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;,
+  &quot;name&quot;: &quot;Introduction to Programming&quot;,
+  &quot;description&quot;: &quot;Learn the basics of programming.&quot;,
+  &quot;banner&quot;: &quot;https://example.com/images/programming.jpg&quot;,
+  &quot;createdAt&quot;: &quot;2023-04-01T00:00:00Z&quot;,
+  &quot;updatedAt&quot;: &quot;2023-04-01T00:00:00Z&quot;
+}</code></pre></div><h3>8. <a href="#api-endpoints">Create a New Lesson</a></h3>
+<p><strong>Route:</strong> <code>POST /courses/:courseId/lessons</code></p>
+<p><strong>Description:</strong> Creates a new lesson for a specific course.</p>
+<p><strong>Request Body:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;name&quot;: &quot;Getting Started with Python&quot;,
+  &quot;description&quot;: &quot;Learn how to write your first Python program.&quot;,
+  &quot;content&quot;: &quot;In this lesson, you will learn how to write a simple Python program.&quot;,
+  &quot;role&quot;: &quot;TEXT&quot;,
+  &quot;courseId&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;
+}</code></pre></div><p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417403&quot;,
+  &quot;name&quot;: &quot;Getting Started with Python&quot;,
+  &quot;description&quot;: &quot;Learn how to write your first Python program.&quot;,
+  &quot;content&quot;: &quot;In this lesson, you will learn how to write a simple Python program.&quot;,
+  &quot;role&quot;: &quot;TEXT&quot;,
+  &quot;courseId&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;
+}</code></pre></div><h3>9. <a href="#api-endpoints">List All Courses</a></h3>
+<p><strong>Route:</strong> <code>GET /courses</code></p>
+<p><strong>Description:</strong> Lists all courses available.</p>
+<p><strong>Query Parameters:</strong></p>
+<ul>
+<li><code>page</code>: Page number (optional, default 1)</li>
+<li><code>size</code>: Number of items per page (optional, default 10)</li>
+</ul>
+<p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">[
+  {
+    &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;,
+    &quot;name&quot;: &quot;Introduction to Programming&quot;,
+    &quot;description&quot;: &quot;Learn the basics of programming.&quot;,
+    &quot;banner&quot;: &quot;https://example.com/images/programming.jpg&quot;,
+    &quot;createdAt&quot;: &quot;2023-04-01T00:00:00Z&quot;,
+    &quot;updatedAt&quot;: &quot;2023-04-01T00:00:00Z&quot;
+  },
+  {
+    &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417404&quot;,
+    &quot;name&quot;: &quot;Advanced Python Programming&quot;,
+    &quot;description&quot;: &quot;Dive deeper into Python programming.&quot;,
+    &quot;banner&quot;: &quot;https://example.com/images/advanced-python.jpg&quot;,
+    &quot;createdAt&quot;: &quot;2023-04-02T00:00:00Z&quot;,
+    &quot;updatedAt&quot;: &quot;2023-04-02T00:00:00Z&quot;
+  }
+]</code></pre></div><h3>10. <a href="#api-endpoints">List All Lessons for a Specific Course</a></h3>
+<p><strong>Route:</strong> <code>GET /courses/:courseId/lessons</code></p>
+<p><strong>Description:</strong> Lists all lessons for a specific course.</p>
+<p><strong>Query Parameters:</strong></p>
+<ul>
+<li><code>page</code>: Page number (optional, default 1)</li>
+<li><code>size</code>: Number of items per page (optional, default 10)</li>
+</ul>
+<p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">[
+  {
+    &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417403&quot;,
+    &quot;name&quot;: &quot;Getting Started with Python&quot;,
+    &quot;description&quot;: &quot;Learn how to write your first Python program.&quot;,
+    &quot;content&quot;: &quot;In this lesson, you will learn how to write a simple Python program.&quot;,
+    &quot;role&quot;: &quot;TEXT&quot;,
+    &quot;courseId&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;
+  },
+  {
+    &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417405&quot;,
+    &quot;name&quot;: &quot;Variables and Data Types&quot;,
+    &quot;description&quot;: &quot;Understand variables and data types in Python.&quot;,
+    &quot;content&quot;: &quot;In this lesson, you will learn about variables and data types in Python.&quot;,
+    &quot;role&quot;: &quot;TEXT&quot;,
+    &quot;courseId&quot;: &quot;123e4567-e89b-12d3-a456-42661417403&quot;
+  },
+  {
+    &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417406&quot;,
+    &quot;name&quot;: &quot;Control Flow&quot;,
+    &quot;description&quot;: &quot;Learn about loops and conditionals in Python.&quot;,
+    &quot;content&quot;: &quot;In this lesson, you will learn how to use loops and conditionals in Python.&quot;,
+    &quot;role&quot;: &quot;TEXT&quot;,
+    &quot;courseId&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;
+  }
+]</code></pre></div><h3>11. <a href="#api-endpoints">Find a Course by ID</a></h3>
+<p><strong>Route:</strong> <code>GET /courses/:id</code></p>
+<p><strong>Description:</strong> Finds a course by ID.</p>
+<p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;,
+  &quot;name&quot;: &quot;Introduction to Programming&quot;,
+  &quot;description&quot;: &quot;Learn the basics of programming.&quot;,
+  &quot;banner&quot;: &quot;https://example.com/images/programming.jpg&quot;,
+  &quot;createdAt&quot;: &quot;2023-04-01T00:00:00Z&quot;,
+  &quot;updatedAt&quot;: &quot;2023-04-01T00:00:00Z&quot;
+}</code></pre></div><h3>12. <a href="#api-endpoints">Find a Lesson by ID for a Specific Course</a></h3>
+<p><strong>Route:</strong> <code>GET /courses/:courseId/lessons/:id</code></p>
+<p><strong>Description:</strong> Finds a lesson by ID for a specific course.</p>
+<p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417403&quot;,
+  &quot;name&quot;: &quot;Getting Started with Python&quot;,
+  &quot;description&quot;: &quot;Learn how to write your first Python program.&quot;,
+  &quot;content&quot;: &quot;In this lesson, you will learn how to write a simple Python program.&quot;,
+  &quot;role&quot;: &quot;TEXT&quot;,
+  &quot;courseId&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;
+}</code></pre></div><h3>13. <a href="#api-endpoints">Update a Course by ID</a></h3>
+<p><strong>Route:</strong> <code>PUT /courses/:id</code></p>
+<p><strong>Description:</strong> Updates a course by ID.</p>
+<p><strong>Request Body:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;name&quot;: &quot;Advanced Introduction to Programming&quot;,
+  &quot;description&quot;: &quot;Dive deeper into the basics of programming.&quot;,
+  &quot;banner&quot;: &quot;https://example.com/images/advanced-programming.jpg&quot;
+}</code></pre></div><p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;,
+  &quot;name&quot;: &quot;Advanced Introduction to Programming&quot;,
+  &quot;description&quot;: &quot;Dive deeper into the basics of programming.&quot;,
+  &quot;banner&quot;: &quot;https://example.com/images/advanced-programming.jpg&quot;,
+  &quot;createdAt&quot;: &quot;2023-04-01T00:00:00Z&quot;,
+  &quot;updatedAt&quot;: &quot;2023-04-02T00:00:00Z&quot;
+}</code></pre></div><h3>14. <a href="#api-endpoints">Update a Lesson by ID for a Specific Course</a></h3>
+<p><strong>Route:</strong> <code>PUT /courses/:courseId/lessons/:id</code></p>
+<p><strong>Description:</strong> Updates a lesson by ID for a specific course.</p>
+<p><strong>Request Body:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;name&quot;: &quot;Advanced Python Programming&quot;,
+  &quot;description&quot;: &quot;Dive deeper into Python programming.&quot;,
+  &quot;content&quot;: &quot;In this lesson, you will learn advanced Python programming concepts.&quot;,
+  &quot;role&quot;: &quot;TEXT&quot;
+}</code></pre></div><p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;id&quot;: &quot;123e4567-e89b-12d3-a456-42661417403&quot;,
+  &quot;name&quot;: &quot;Advanced Python Programming&quot;,
+  &quot;description&quot;: &quot;Dive deeper into Python programming.&quot;,
+  &quot;content&quot;: &quot;In this lesson, you will learn advanced Python programming concepts.&quot;,
+  &quot;role&quot;: &quot;TEXT&quot;,
+  &quot;courseId&quot;: &quot;123e4567-e89b-12d3-a456-42661417402&quot;
+}</code></pre></div><h3>15. <a href="#api-endpoints">Delete a Course by ID</a></h3>
+<p><strong>Route:</strong> <code>DELETE /courses/:id</code></p>
+<p><strong>Description:</strong> Deletes a course by ID.</p>
+<p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;message&quot;: &quot;Course deleted successfully&quot;
+}</code></pre></div><h3>16. <a href="#api-endpoints">Delete a Lesson by ID for a Specific Course</a></h3>
+<p><strong>Route:</strong> <code>DELETE /courses/:courseId/lessons/:id</code></p>
+<p><strong>Description:</strong> Deletes a lesson by ID for a specific course.</p>
+<p><strong>Response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;message&quot;: &quot;Lesson deleted successfully&quot;
+}</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

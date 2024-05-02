@@ -1,9 +1,15 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { viewModelLesson } from '../viewModelLesson';
 import { FindLessonByIdUseCase } from '../useCase/findById.useCase';
 
 @ApiTags('lessons')
+@ApiBearerAuth()
 @Controller('courses/:courseId/lessons')
 export class FindLessonByIdController {
   constructor(private useCase: FindLessonByIdUseCase) {}

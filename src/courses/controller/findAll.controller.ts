@@ -1,9 +1,16 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { FindAllCoursesUseCase } from '../useCase/findAll.useCase';
 import { viewModelCourse } from '../viewModelCourse';
 
 @ApiTags('courses')
+@ApiBearerAuth()
 @Controller('courses')
 export class FindAllCoursesController {
   constructor(private useCase: FindAllCoursesUseCase) {}
@@ -17,6 +24,10 @@ export class FindAllCoursesController {
   @ApiResponse({
     status: 401,
     description: 'Unauthorized.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
   })
   @ApiQuery({
     name: 'page',

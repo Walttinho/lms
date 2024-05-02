@@ -1,10 +1,17 @@
 import { Body, Controller, Param, Post, Req } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateLessonUseCase } from '../useCase/create.useCase';
 import { Lesson } from '../entities/lesson.entity';
 import { viewModelLesson } from '../viewModelLesson';
 
 @ApiTags('lessons')
+@ApiBearerAuth()
 @Controller('courses/:courseId/lessons')
 export class CreateLessonsController {
   constructor(private useCase: CreateLessonUseCase) {}
@@ -15,6 +22,18 @@ export class CreateLessonsController {
   @ApiResponse({
     status: 201,
     description: 'The lesson has been successfully created.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Course not found.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
   })
   async create(
     @Req() req: Request,
